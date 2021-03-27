@@ -1,0 +1,1 @@
+class HPMonstersCollection extends KFMod.KFMonstersCollection;
