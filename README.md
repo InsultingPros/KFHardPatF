@@ -1,5 +1,7 @@
 # Hard Pat v3
 
+![GitHub all releases](https://img.shields.io/github/downloads/Insulting-Pros/KFHardPatF/total)
+
 Advanced Patriarch mechanics for KF 1.
 
 ## Installation
