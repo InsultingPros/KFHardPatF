@@ -1,5 +1,9 @@
 # Hard Pat v3
 
+![GitHub all releases](https://img.shields.io/github/downloads/InsultingPros/KFHardPatF/total)
+
+> N.B. If you want to add Vampriarch install this [addon](https://github.com/InsultingPros/KFHardPatAddon).
+
 Advanced Patriarch mechanics for KF 1.
 
 ## Installation
@@ -11,6 +15,8 @@ KFHardPatF.KFHardPatF
 ## Building and Dependancies
 
 At the moment of 2021.03.27 there are no dependencies.
+
+Use [KF Compile Tool](https://github.com/InsultingPros/KFCompileTool) for easy compilation.
 
 **EditPackages**
 
