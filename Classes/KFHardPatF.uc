@@ -79,17 +79,20 @@ function bool CheckAdmin(PlayerController Sender)
     return false;
 }
 
-function Mutate(string MutateString, PlayerController Sender)
+function Mutate(string input, PlayerController Sender)
 {
     local int i;
     local array<string> wordsArray;
     local string command, mod;
     local array<string> modArray;
 
+    // DONT break the chain!!!
+    super.Mutate(input, Sender);
+
     // ignore empty cmds and dont go further
     // P.S. let's ignore the fact that I was
     // using custom command instead of native
-    split(MutateString, " ", wordsArray);
+    split(input, " ", wordsArray);
     if (wordsArray.Length == 0)
         return;
 
@@ -100,7 +103,6 @@ function Mutate(string MutateString, PlayerController Sender)
     else
         mod = "";
 
-    i = 0;
     while (i + 1 < wordsArray.Length || i < 10)
     {
         if (i + 1 < wordsArray.Length)
@@ -110,66 +112,64 @@ function Mutate(string MutateString, PlayerController Sender)
         i ++;
     }
 
-    // allow only admins and filter 'PAT' keyword
-    if (command != "PAT")
+    if (command ~= "PAT")
     {
-        super.Mutate(MutateString, Sender);
-        return;
-    }
+        // allow only admins
+        if (!CheckAdmin(Sender))
+        {
+            SendMessage(Sender, "%wKFHardPatF requires %rADMIN %wprivileges!");
+            return;
+        }
 
-    if (!CheckAdmin(Sender))
-    {
-        SendMessage(Sender, "%wRequires %rADMIN %wprivileges!");
-        return;
-    }
+        if (mod ~= "HELP" || mod ~= "HLP" || mod ~= "HALP")
+        {
+            // Helper class. Allows to type 'mutate help <cmd>' and get detailed description
+            class'Helper'.static.TellAbout(modArray[1], Sender, self);
+            return;
+        }
 
-    if (mod ~= "HELP" || mod ~= "HLP" || mod ~= "HALP")
-    {
-        // Helper class. Allows to type 'mutate help <cmd>' and get detailed description
-        class'Helper'.static.TellAbout(modArray[1], Sender, self);
-    }
+        else if (mod ~= "STANDARD" || mod ~= "0" || mod ~= "")
+        {
+            EventNum = 0;
+            ActivateTimer();
+            return;
+        }
 
-    else if (mod ~= "STANDARD" || mod ~= "0" || mod ~= "")
-    {
-        EventNum = 0;
-        ActivateTimer();
-        return;
-    }
+        else if (mod ~= "XMAS" || mod ~= "1")
+        {
+            EventNum = 1;
+            ActivateTimer();
+            return;
+        }
 
-    else if (mod ~= "XMAS" || mod ~= "1")
-    {
-        EventNum = 1;
-        ActivateTimer();
-        return;
-    }
+        else if (mod ~= "CIRCUS" || mod ~= "2")
+        {
+            EventNum = 2;
+            ActivateTimer();
+            return;
+        }
 
-    else if (mod ~= "CIRCUS" || mod ~= "2")
-    {
-        EventNum = 2;
-        ActivateTimer();
-        return;
-    }
+        else if (mod ~= "HALLOWEEN" || mod ~= "3")
+        {
+            EventNum = 3;
+            ActivateTimer();
+            return;
+        }
 
-    else if (mod ~= "HALLOWEEN" || mod ~= "3")
-    {
-        EventNum = 3;
-        ActivateTimer();
-        return;
-    }
+        else if (mod ~= "STATUS")
+        {
+            BroadcastText("%rHard Pat Mutator%w:");
+            BroadcastText("%wCurrently active: - %b" $KFGameType(Level.Game).MonsterCollection.default.EndGameBossClass$ " %w(%gEventNum = " $EventNum$ "%w).");
+            return;
+        }
 
-    else if (mod ~= "STATUS")
-    {
-        BroadcastText("%rHard Pat Mutator%w:");
-        BroadcastText("%wCurrently active: - %b" $KFGameType(Level.Game).MonsterCollection.default.EndGameBossClass$ " %w(%gEventNum = " $EventNum$ "%w).");
+        else if (mod ~= "SAVE")
+        {
+            SaveConfig();
+            SendMessage(Sender, "%wConfig file is %rsaved%w!");
+            return;
+        }
     }
-
-    else if (mod ~= "SAVE")
-    {
-        SaveConfig();
-        SendMessage(Sender, "%rConfig is saved!");
-    }
-
-    super.Mutate(MutateString, Sender);
 }
 
 function ActivateTimer()
