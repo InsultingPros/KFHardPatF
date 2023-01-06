@@ -9,8 +9,11 @@ var string strSeasonalPat;
 
 var KFGameType KFGT;
 
-function PreBeginPlay()
+event PreBeginPlay()
 {
+    // so what I was thinking when I didn't put super code?
+    super.PreBeginPlay();
+
     KFGT = KFGameType(Level.Game);
     if (KFGT == none)
     {
@@ -19,8 +22,7 @@ function PreBeginPlay()
         return;
     }
 
-    AddToPackageMap();
-    //SaveConfig();
+    // SaveConfig();
 }
 
 function MatchStarting()
@@ -233,6 +235,9 @@ defaultproperties
     GroupName="KF-BossMut"
     FriendlyName="Extended and fixed Hard Patriarch."
     Description="Make the Patriarch harder than ever."
+
+    // better do this than call the function manually...
+    bAddToServerPackages=true
 
     bUseCustomMC=true
     EventNum=0
