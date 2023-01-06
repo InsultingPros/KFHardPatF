@@ -41,16 +41,16 @@ function Timer()
     switch (EventNum)
     {
         case 1:
-            strSeasonalPat = "KFHardPatF.HardPat_XMAS";
+            strSeasonalPat = string(class'HardPat_XMAS');
             break;
         case 2:
-            strSeasonalPat = "KFHardPatF.HardPat_CIRCUS";
+            strSeasonalPat = string(class'HardPat_CIRCUS');
             break;
         case 3:
-            strSeasonalPat = "KFHardPatF.HardPat_HALLOWEEN";
+            strSeasonalPat = string(class'HardPat_HALLOWEEN');
             break;
         default:
-            strSeasonalPat = "KFHardPatF.HardPat";
+            strSeasonalPat = string(class'HardPat');
     }
     log("Hard Patriarch: " $ strSeasonalPat $ " is selected!");
 

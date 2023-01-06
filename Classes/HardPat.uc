@@ -697,7 +697,7 @@ defaultproperties
 {
     MenuName="Hard Pat"
     AmmunitionClass=class'BossAmmo'
-    ControllerClass=class'KFHardPatF.HardPatController'
+    ControllerClass=class'HardPatController'
 
     PatStates(0)=(bMovCG=false,bRunCG=false,bPauseCG=true,bMisIgnoreRange=false,bAltRoute=false,NumMis[0]=1,NumMis[1]=0,NumCG[0]=35,NumCG[1]=5,MisRepTime=1.000000)
     PatStates(1)=(bMovCG=false,bRunCG=false,bPauseCG=false,bMisIgnoreRange=false,bAltRoute=false,NumMis[0]=2,NumMis[1]=0,NumCG[0]=45,NumCG[1]=10,MisRepTime=0.800000)
