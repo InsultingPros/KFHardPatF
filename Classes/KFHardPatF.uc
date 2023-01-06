@@ -8,7 +8,6 @@ var transient bool bBroadcast;
 var string strSeasonalPat;
 
 var KFGameType KFGT;
-var KFHardPatF Mut;
 
 function PreBeginPlay()
 {
@@ -20,7 +19,6 @@ function PreBeginPlay()
         return;
     }
 
-    Mut = self;
     AddToPackageMap();
     //SaveConfig();
 }

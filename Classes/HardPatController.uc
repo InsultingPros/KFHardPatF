@@ -124,7 +124,7 @@ final function GetMidGoals()
         ReachOffset = 0;
 }
 
-// WTF! mut stuff
+// WTF! mod stuff
 // overridden to actually get the freakin' pat to the players quickly
 //...unlike what the state I'm overridding accomplished (nothing)
 state InitialHunting
