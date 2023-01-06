@@ -7,6 +7,13 @@ var() config byte EventNum;
 var transient bool bBroadcast;
 var string strSeasonalPat;
 
+struct sSeasonalVariants
+{
+    var byte idx;
+    var class<HardPat> variant;
+};
+var public array<sSeasonalVariants> SeasonalVariants;
+
 var KFGameType KFGT;
 
 event PreBeginPlay()
@@ -32,26 +39,16 @@ function MatchStarting()
 
 function Timer()
 {
-    if (bUseCustomMC && KFGT.MonsterCollection == class'KFGameType'.default.MonsterCollection)
+    // waaaaait, why do i even check this?
+    if (bUseCustomMC && AllowMonsterCollectionSwap())
     {
         KFGT.MonsterCollection = class'HPMonstersCollection';
         log("Hard Patriarch: HPMonstersCollection is loaded!");
     }
 
-    switch (EventNum)
-    {
-        case 1:
-            strSeasonalPat = string(class'HardPat_XMAS');
-            break;
-        case 2:
-            strSeasonalPat = string(class'HardPat_CIRCUS');
-            break;
-        case 3:
-            strSeasonalPat = string(class'HardPat_HALLOWEEN');
-            break;
-        default:
-            strSeasonalPat = string(class'HardPat');
-    }
+    // move the code outa here, so later we can add
+    // more variants without copy-paste hell
+    strSeasonalPat = getPatClassName();
     log("Hard Patriarch: " $ strSeasonalPat $ " is selected!");
 
     KFGT.EndGameBossClass = strSeasonalPat;
@@ -70,10 +67,44 @@ function Timer()
     // Destroy();
 }
 
+public function string getPatClassName()
+{
+    local int i;
+
+    for (i = 0; i < SeasonalVariants.length; i++)
+    {
+        if (SeasonalVariants[i].idx == EventNum)
+            return string(SeasonalVariants[i].variant);
+    }
+
+    // if nothing found, return the standard pat
+    return string(SeasonalVariants[0].variant);
+}
+
+public function bool AllowMonsterCollectionSwap()
+{
+    local byte i;
+    local bool bResult;
+
+    for (i = 0; i < 4; i++)
+    {
+        log(">>>>>>>> INDEX IS: " $ i);
+        if (KFGT.MonsterCollection == kfgt.SpecialEventMonsterCollections[i])
+        {
+            log("TRUE!!!!!!!!!!!!!!!!!!!!!!!");
+            bResult = true;
+            break;
+        }
+    }
+
+    return bResult;
+}
+
 //=========================================================================
 function bool CheckAdmin(PlayerController Sender)
 {
-    if ( (Sender.PlayerReplicationInfo != none && Sender.PlayerReplicationInfo.bAdmin) || Level.NetMode == NM_Standalone || Level.NetMode == NM_ListenServer )
+    if ( (Sender.PlayerReplicationInfo != none && Sender.PlayerReplicationInfo.bAdmin)
+        || Level.NetMode == NM_Standalone || Level.NetMode == NM_ListenServer)
         return true;
 
     return false;
@@ -238,6 +269,12 @@ defaultproperties
 
     // better do this than call the function manually...
     bAddToServerPackages=true
+
+    // now this matches kfgametype enumeration
+    SeasonalVariants(0)=(idx=0,variant=class'HardPat')
+    SeasonalVariants(1)=(idx=1,variant=class'HardPat_CIRCUS')
+    SeasonalVariants(2)=(idx=2,variant=class'HardPat_HALLOWEEN')
+    SeasonalVariants(3)=(idx=3,variant=class'HardPat_XMAS')
 
     bUseCustomMC=true
     EventNum=0
