@@ -71,56 +71,6 @@ function Timer()
 }
 
 //=========================================================================
-// split our mutate cmd so we can use fancy ON / OFF switches
-function array<string> SplitString(string inputString, string div)
-{
-    local array<string> parts;
-    local bool bEOL;
-    local string tempChar;
-    local int preCount, curCount, partCount, strLength;
-
-    inputString = Caps(inputString);
-    strLength = Len(inputString);
-    if(strLength == 0)
-        return parts;
-    bEOL = false;
-    preCount = 0;
-    curCount = 0;
-    partCount = 0;
-
-    while(!bEOL)
-    {
-        tempChar = Mid(inputString, curCount, 1);
-        if(tempChar != div)
-            curCount ++;
-        else
-        {
-            if(curCount == preCount)
-            {
-                curCount ++;
-                preCount ++;
-            }
-
-            else
-            {
-                parts[partCount] = Mid(inputString, preCount, curCount - preCount);
-                partCount ++;
-                preCount = curCount + 1;
-                curCount = preCount;
-            }
-        }
-
-        if(curCount == strLength)
-        {
-            if(preCount != strLength)
-                parts[partCount] = Mid(inputString, preCount, curCount);
-            bEOL = true;
-        }
-    }
-
-    return parts;
-}
-
 function bool CheckAdmin(PlayerController Sender)
 {
     if ( (Sender.PlayerReplicationInfo != none && Sender.PlayerReplicationInfo.bAdmin) || Level.NetMode == NM_Standalone || Level.NetMode == NM_ListenServer )
@@ -137,7 +87,9 @@ function Mutate(string MutateString, PlayerController Sender)
     local array<string> modArray;
 
     // ignore empty cmds and dont go further
-    wordsArray = SplitString(MutateString, " ");
+    // P.S. let's ignore the fact that I was
+    // using custom command instead of native
+    split(MutateString, " ", wordsArray);
     if (wordsArray.Length == 0)
         return;
 
