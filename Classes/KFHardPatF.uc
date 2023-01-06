@@ -1,4 +1,4 @@
-Class KFHardPatF extends Mutator
+class KFHardPatF extends Mutator
     config(KFHardPatF);
 
 var() config bool bUseCustomMC;
@@ -52,18 +52,18 @@ function Timer()
         default:
             strSeasonalPat = "KFHardPatF.HardPat";
     }
-    log("Hard Patriarch: " $strSeasonalPat$ " is selected!");
+    log("Hard Patriarch: " $ strSeasonalPat $ " is selected!");
 
     KFGT.EndGameBossClass = strSeasonalPat;
 
-    if( KFGT.MonsterCollection != None )
-        KFGT.MonsterCollection.Default.EndGameBossClass = strSeasonalPat;
+    if (KFGT.MonsterCollection != none)
+        KFGT.MonsterCollection.default.EndGameBossClass = strSeasonalPat;
 
-    if(!bBroadcast)
+    if (!bBroadcast)
         return;
 
     BroadcastText("%rHard Pat Mutator%w:");
-    BroadcastText("%b" $strSeasonalPat$ " %wis activated!");
+    BroadcastText("%b" $ strSeasonalPat $ " %wis activated!");
     bBroadcast = false;
 
     SetTimer(0.0, false);
@@ -132,26 +132,26 @@ function bool CheckAdmin(PlayerController Sender)
 function Mutate(string MutateString, PlayerController Sender)
 {
     local int i;
-    local array<String> wordsArray;
-    local String command, mod;
-    local array<String> modArray;
+    local array<string> wordsArray;
+    local string command, mod;
+    local array<string> modArray;
 
     // ignore empty cmds and dont go further
     wordsArray = SplitString(MutateString, " ");
-    if(wordsArray.Length == 0)
+    if (wordsArray.Length == 0)
         return;
 
     // do stuff with our cmd
     command = wordsArray[0];
-    if(wordsArray.Length > 1)
+    if (wordsArray.Length > 1)
         mod = wordsArray[1];
     else
         mod = "";
 
     i = 0;
-    while(i + 1 < wordsArray.Length || i < 10)
+    while (i + 1 < wordsArray.Length || i < 10)
     {
-        if(i + 1 < wordsArray.Length)
+        if (i + 1 < wordsArray.Length)
             modArray[i] = wordsArray[i+1];
         else
             modArray[i] = "";
@@ -159,65 +159,65 @@ function Mutate(string MutateString, PlayerController Sender)
     }
 
     // allow only admins and filter 'PAT' keyword
-    if(command != "PAT")
+    if (command != "PAT")
     {
-        Super.Mutate(MutateString, Sender);
+        super.Mutate(MutateString, Sender);
         return;
     }
 
-    if(!CheckAdmin(Sender))
+    if (!CheckAdmin(Sender))
     {
         SendMessage(Sender, "%wRequires %rADMIN %wprivileges!");
         return;
     }
 
-    if(mod ~= "HELP" || mod ~= "HLP" || mod ~= "HALP")
+    if (mod ~= "HELP" || mod ~= "HLP" || mod ~= "HALP")
     {
         // Helper class. Allows to type 'mutate help <cmd>' and get detailed description
         class'Helper'.static.TellAbout(modArray[1], Sender, self);
     }
 
-    else if(mod ~= "STANDARD" || mod ~= "0" || mod ~= "")
+    else if (mod ~= "STANDARD" || mod ~= "0" || mod ~= "")
     {
         EventNum = 0;
         ActivateTimer();
         return;
     }
 
-    else if(mod ~= "XMAS" || mod ~= "1")
+    else if (mod ~= "XMAS" || mod ~= "1")
     {
         EventNum = 1;
         ActivateTimer();
         return;
     }
 
-    else if(mod ~= "CIRCUS" || mod ~= "2")
+    else if (mod ~= "CIRCUS" || mod ~= "2")
     {
         EventNum = 2;
         ActivateTimer();
         return;
     }
 
-    else if(mod ~= "HALLOWEEN" || mod ~= "3")
+    else if (mod ~= "HALLOWEEN" || mod ~= "3")
     {
         EventNum = 3;
         ActivateTimer();
         return;
     }
 
-    else if(mod ~= "STATUS")
+    else if (mod ~= "STATUS")
     {
         BroadcastText("%rHard Pat Mutator%w:");
-        BroadcastText("%wCurrently active: - %b" $KFGameType(Level.Game).MonsterCollection.Default.EndGameBossClass$ " %w(%gEventNum = " $EventNum$ "%w).");
+        BroadcastText("%wCurrently active: - %b" $KFGameType(Level.Game).MonsterCollection.default.EndGameBossClass$ " %w(%gEventNum = " $EventNum$ "%w).");
     }
 
-    else if(mod ~= "SAVE")
+    else if (mod ~= "SAVE")
     {
         SaveConfig();
         SendMessage(Sender, "%rConfig is saved!");
     }
 
-    Super.Mutate(MutateString, Sender);
+    super.Mutate(MutateString, Sender);
 }
 
 function ActivateTimer()
@@ -228,10 +228,10 @@ function ActivateTimer()
 
 static function FillPlayInfo(PlayInfo PlayInfo)
 {
-    Super.FillPlayInfo(PlayInfo);
+    super.FillPlayInfo(PlayInfo);
 
     PlayInfo.AddSetting("Hard Pat", "bUseCustomMC", "Use Custom MonsterCollection", 0, 0, "Check");
-    PlayInfo.AddSetting("Hard Pat", "EventNum", "Select Season", 0, 1, "Select", "0;Standard;1;Xmas;2;Circus;3;Halloween",,,True);
+    PlayInfo.AddSetting("Hard Pat", "EventNum", "Select Season", 0, 1, "Select", "0;Standard;1;Xmas;2;Circus;3;Halloween",,,true);
 }
 
 static event string GetDescriptionText(string Property)
@@ -243,7 +243,7 @@ static event string GetDescriptionText(string Property)
         case "EventNum":
             return "Available types - Standard, Xmas, Circus, Halloween.";
         default:
-            return Super.GetDescriptionText(Property);
+            return super.GetDescriptionText(Property);
     }
 }
 
@@ -251,16 +251,18 @@ static event string GetDescriptionText(string Property)
 // SendMessage(target, message). Nagi <3 dkanus <3
 function SendMessage(PlayerController pc, coerce string message)
 {
-    if(pc == none || message == "")
+    if (pc == none || message == "")
         return;
 
     // keep WebAdmin clean and shiny
-    if(pc.playerReplicationInfo.PlayerName ~= "WebAdmin" && pc.PlayerReplicationInfo.PlayerID == 0)
+    if (pc.playerReplicationInfo.PlayerName ~= "WebAdmin"
+        && pc.PlayerReplicationInfo.PlayerID == 0)
         message = class'Helper'.static.StripFormattedString(message);
     else
         message = class'Helper'.static.ParseFormattedLine(message);
 
-    pc.teamMessage(none, message, 'AdminPlus');
+    // funny that message Type was `AdminPlus` and no one reported this
+    pc.teamMessage(none, message, 'Hard Pat');
 }
 
 // BroadcastText("something",true/false)
@@ -268,9 +270,9 @@ function BroadcastText(string message)
 {
     local Controller c;
 
-    for(c = level.controllerList; c != none; c = c.nextController)
+    for (c = level.controllerList; c != none; c = c.nextController)
     {
-        if(!C.bIsPlayer)
+        if (!C.bIsPlayer)
             continue;
         SendMessage(PlayerController(c), message);
     }

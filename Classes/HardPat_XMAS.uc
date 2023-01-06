@@ -23,7 +23,7 @@ simulated function CloakBoss()
 
         if ( Level.NetMode==NM_DedicatedServer )
         {
-            Return;
+            return;
         }
 
         Skins[0] = Finalblend'KFX.StalkerGlow';
@@ -38,18 +38,18 @@ simulated function CloakBoss()
 
     if ( Level.NetMode!=NM_Client )
     {
-        for ( C=Level.ControllerList; C!=None; C=C.NextController )
+        for ( C=Level.ControllerList; C!=none; C=C.NextController )
         {
-            if ( C.bIsPlayer && C.Enemy==Self )
+            if ( C.bIsPlayer && C.Enemy==self )
             {
-                C.Enemy = None; // Make bots lose sight with me.
+                C.Enemy = none; // Make bots lose sight with me.
             }
         }
     }
 
     if( Level.NetMode==NM_DedicatedServer )
     {
-        Return;
+        return;
     }
 
     Skins[1] = Shader'KF_Specimens_Trip_T.patriarch_invisible_gun';
@@ -141,9 +141,9 @@ defaultproperties
     MoanVoice=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_Talk'
     MeleeAttackHitSound=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_HitPlayer_Fist'
     JumpSound=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_Jump'
-    DetachedArmClass=Class'KFChar.SeveredArmPatriarch_XMas'
-    DetachedLegClass=Class'KFChar.SeveredLegPatriarch_XMas'
-    DetachedHeadClass=Class'KFChar.SeveredHeadPatriarch_XMas'
+    DetachedArmClass=class'KFChar.SeveredArmPatriarch_XMas'
+    DetachedLegClass=class'KFChar.SeveredLegPatriarch_XMas'
+    DetachedHeadClass=class'KFChar.SeveredHeadPatriarch_XMas'
     HitSound(0)=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_Pain'
     DeathSound(0)=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_Death'
     MenuName="Hard Santa"

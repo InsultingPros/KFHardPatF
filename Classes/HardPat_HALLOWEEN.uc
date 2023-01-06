@@ -12,7 +12,7 @@ simulated function CloakBoss()
     local int Index;
 
     // No cloaking if zapped
-    if( bZapped )
+    if (bZapped)
     {
         return;
     }
@@ -23,7 +23,7 @@ simulated function CloakBoss()
 
         if ( Level.NetMode==NM_DedicatedServer )
         {
-            Return;
+            return;
         }
 
         Skins[0] = Finalblend'KFX.StalkerGlow';
@@ -39,18 +39,18 @@ simulated function CloakBoss()
 
     if ( Level.NetMode!=NM_Client )
     {
-        for ( C=Level.ControllerList; C!=None; C=C.NextController )
+        for ( C=Level.ControllerList; C!=none; C=C.NextController )
         {
-            if ( C.bIsPlayer && C.Enemy==Self )
+            if ( C.bIsPlayer && C.Enemy==self )
             {
-                C.Enemy = None; // Make bots lose sight with me.
+                C.Enemy = none; // Make bots lose sight with me.
             }
         }
     }
 
     if( Level.NetMode==NM_DedicatedServer )
     {
-        Return;
+        return;
     }
 
     Skins[1] = Shader'KF_Specimens_Trip_HALLOWEEN_T.Patriarch.Patriarch_Halloween_Invisible';
@@ -140,9 +140,9 @@ defaultproperties
     MoanVoice=SoundGroup'KF_EnemiesFinalSnd_HALLOWEEN.Patriarch.Kev_Talk'
     MeleeAttackHitSound=SoundGroup'KF_EnemiesFinalSnd_HALLOWEEN.Patriarch.Kev_HitPlayer_Fist'
     JumpSound=SoundGroup'KF_EnemiesFinalSnd_HALLOWEEN.Patriarch.Kev_Jump'
-    DetachedArmClass=Class'KFChar.SeveredArmPatriarch_HALLOWEEN'
-    DetachedLegClass=Class'KFChar.SeveredLegPatriarch_HALLOWEEN'
-    DetachedHeadClass=Class'KFChar.SeveredHeadPatriarch_HALLOWEEN'
+    DetachedArmClass=class'KFChar.SeveredArmPatriarch_HALLOWEEN'
+    DetachedLegClass=class'KFChar.SeveredLegPatriarch_HALLOWEEN'
+    DetachedHeadClass=class'KFChar.SeveredHeadPatriarch_HALLOWEEN'
     HitSound(0)=SoundGroup'KF_EnemiesFinalSnd_HALLOWEEN.Patriarch.Kev_Pain'
     DeathSound(0)=SoundGroup'KF_EnemiesFinalSnd_HALLOWEEN.Patriarch.Kev_Death'
     MenuName="Hard Sheriff"

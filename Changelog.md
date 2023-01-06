@@ -12,7 +12,7 @@
 [+] Health information in console after team wipe.
 [+] More logging for debug and curious admins.
 [+] Increased 'ImpaleMeleeDamageRange' to 85 (was 45) and decreased 'ClawMeleeDamageRange' to 75 (was 85), to match the animations.
-[=] 'Accessed None 'MyAmmo'' when pat shoots rockets.
+[=] 'Accessed none 'MyAmmo'' when pat shoots rockets.
 [=] Escape sound for seasonal variants.
 
 ## [Version 1.00] - 11.06.2017
