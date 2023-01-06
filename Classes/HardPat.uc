@@ -34,6 +34,10 @@ simulated function PostBeginPlay()
     KFGT = KFGameType(Level.Game);
 
     super.PostBeginPlay();
+
+    // and why TWI removed this feature...
+    if (Controller != none)
+		MyAmmo = spawn(AmmunitionClass);
 }
 
 function bool MakeGrandEntry()
@@ -507,30 +511,30 @@ state FireMissile
 
     function AnimEnd(int Channel)
     {
-        local vector Start;
-        local Rotator R;
+        local vector FireStart;
+        local Rotator FireRotation;
 
-        Start = GetBoneCoords('tip').Origin;
+        FireStart = GetBoneCoords('tip').Origin;
         if (Controller.Target == none)
             Controller.Target = Controller.Enemy;
 
         if (!SavedFireProperties.bInitialized)
         {
             // fixed 'MyAmmo not found'
-            SavedFireProperties.AmmoClass = class'SkaarjAmmo';
-            SavedFireProperties.ProjectileClass = class'BossLAWProjX';
-            SavedFireProperties.WarnTargetPct = 0.15;
-            SavedFireProperties.MaxRange = 10000;
-            SavedFireProperties.bTossed = false;
-            SavedFireProperties.bLeadTarget = true;
+            SavedFireProperties.AmmoClass = MyAmmo.Class;
+            SavedFireProperties.ProjectileClass = MyAmmo.ProjectileClass;
+            SavedFireProperties.WarnTargetPct = MyAmmo.WarnTargetPct;
+            SavedFireProperties.MaxRange = MyAmmo.MaxRange;
+            SavedFireProperties.bTossed = MyAmmo.bTossed;
+            SavedFireProperties.bLeadTarget = MyAmmo.bLeadTarget;
             SavedFireProperties.bInitialized = true;
         }
         SavedFireProperties.bInstantHit = (SyringeCount < 1);
         SavedFireProperties.bTrySplash = (SyringeCount >= 2);
 
-        R = AdjustAim(SavedFireProperties, Start, 100);
+        FireRotation = AdjustAim(SavedFireProperties, FireStart, 100);
         PlaySound(RocketFireSound, SLOT_Interact, 2.0,, TransientSoundRadius,, false);
-        Spawn(class'BossLAWProjX',,, Start, R);
+        Spawn(SavedFireProperties.ProjectileClass,,, FireStart, FireRotation);
 
         bShotAnim = true;
         Acceleration = vect(0, 0, 0);
@@ -692,6 +696,7 @@ function BroadcastText(string message)
 defaultproperties
 {
     MenuName="Hard Pat"
+    AmmunitionClass=class'BossAmmo'
     ControllerClass=class'KFHardPatF.HardPatController'
 
     PatStates(0)=(bMovCG=false,bRunCG=false,bPauseCG=true,bMisIgnoreRange=false,bAltRoute=false,NumMis[0]=1,NumMis[1]=0,NumCG[0]=35,NumCG[1]=5,MisRepTime=1.000000)
