@@ -2,27 +2,18 @@
 
 > Go back to [**README**](../README.md#documentation)
 
-## [Version 3.6.0] - 2017.07.11
+## [Version 3.6.0] - 2023.01.07
+
+Meh, most changes were code cleanup and refactoring. So just leaving the most important.
 
 ### Added
 
-- Split some arrays and variables, to make modifications easier.
-- Restored `Ammunition` class functionality, to make modifications easier.
 - Version info in `mutate status`.
-
-### Removed
-
-- Dead code and variables.
-- Huge chunk of TWI copy-paste garbage. Now most logic is in base zed class.
-- All hardcoded class names, to make modifications easier.
 
 ### Fixed
 
-- Invisible pat when you have seasonal events enabled (thanks [kendaix](https://steamcommunity.com/profiles/76561198070331164/)).
-- Buggy code that could affect mutate chain.
-- Buggy `PreBeginPlay()` super code call.
-- Indentations tab -> 4x space.
-- Code Formatting.
+- Invisible pat when you have seasonal events enabled (thanks kendaix).
+- Not all seasonal variants were ignoring zed gun effects during escape.
 
 ## [Version 3.1.0] - 2017.07.11
 
