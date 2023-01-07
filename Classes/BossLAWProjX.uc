@@ -1,3 +1,7 @@
+// Modified pat rocket
+// Author        : NikC-
+// Home Repo     : https://github.com/InsultingPros/KFHardPatF
+// License       : https://www.gnu.org/licenses/gpl-3.0.en.html
 class BossLAWProjX extends BossLAWProj;
 
 #exec obj load file="KF_LAWSnd.uax"

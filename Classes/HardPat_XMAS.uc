@@ -1,6 +1,7 @@
-//-----------------------------------------------------------
-//
-//-----------------------------------------------------------
+// Xmas variant
+// Author        : NikC-
+// Home Repo     : https://github.com/InsultingPros/KFHardPatF
+// License       : https://www.gnu.org/licenses/gpl-3.0.en.html
 class HardPat_XMAS extends HardPat;
 
 #exec OBJ LOAD FILE=KF_EnemiesFinalSnd_Xmas.uax

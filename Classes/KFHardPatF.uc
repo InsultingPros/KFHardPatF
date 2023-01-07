@@ -1,3 +1,6 @@
+// Author        : NikC-
+// Home Repo     : https://github.com/InsultingPros/KFHardPatF
+// License       : https://www.gnu.org/licenses/gpl-3.0.en.html
 class KFHardPatF extends Mutator
     config(KFHardPatF);
 
@@ -40,15 +43,12 @@ function MatchStarting()
 
 function Timer()
 {
-    // waaaaait, why do i even check this?
-    if (bUseCustomMC && AllowMonsterCollectionSwap())
-    {
-        KFGT.MonsterCollection = class'HPMonstersCollection';
-        log("Hard Patriarch: HPMonstersCollection is loaded!");
-    }
+    // We only do this for vanilla game transition
+    // For custom mods - they must have their own monster
+    // collections at the first place, so don't touch this flag
+    if (bUseCustomMC)
+        SwapMonsterCollection();
 
-    // move the code outa here, so later we can add
-    // more variants without copy-paste hell
     strSeasonalPat = getPatClassName();
     log("Hard Patriarch: " $ strSeasonalPat $ " is selected!");
 
@@ -66,6 +66,33 @@ function Timer()
 
     SetTimer(0.0, false);
     // Destroy();
+}
+
+// cough cough, world class coding
+public function SwapMonsterCollection()
+{
+    switch (KFGT.MonsterCollection)
+    {
+        case kfgt.SpecialEventMonsterCollections[0]:
+            KFGT.MonsterCollection = class'MonsterCollection_S';
+            log("Hard Patriarch: " $ string(class'MonsterCollection_S') $ " is loaded!");
+            break;
+        case kfgt.SpecialEventMonsterCollections[1]:
+            KFGT.MonsterCollection = class'MonsterCollection_C';
+            log("Hard Patriarch: " $ string(class'MonsterCollection_C') $ " is loaded!");
+            break;
+        case kfgt.SpecialEventMonsterCollections[2]:
+            KFGT.MonsterCollection = class'MonsterCollection_H';
+            log("Hard Patriarch: " $ string(class'MonsterCollection_H') $ " is loaded!");
+            break;
+        case kfgt.SpecialEventMonsterCollections[3]:
+            KFGT.MonsterCollection = class'MonsterCollection_X';
+            log("Hard Patriarch: " $ string(class'MonsterCollection_X') $ " is loaded!");
+            break;
+    }
+    // tss, a little hack to prevent broken special squads
+    KFGT.LoadUpMonsterList();
+    KFGT.PrepareSpecialSquads();
 }
 
 public function string getPatClassName()
