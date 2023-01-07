@@ -1,6 +1,7 @@
 class KFHardPatF extends Mutator
     config(KFHardPatF);
 
+const VERSION="3.6.0";
 var() config bool bUseCustomMC;
 var() config byte EventNum;
 
@@ -189,7 +190,7 @@ function Mutate(string input, PlayerController Sender)
 
         else if (mod ~= "STATUS")
         {
-            BroadcastText("%rHard Pat Mutator%w:");
+            BroadcastText("%rHard Pat Mutator %wversion %y" $ VERSION);
             BroadcastText("%wCurrently active: - %b" $KFGameType(Level.Game).MonsterCollection.default.EndGameBossClass$ " %w(%gEventNum = " $EventNum$ "%w).");
             return;
         }
