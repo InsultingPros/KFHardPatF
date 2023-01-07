@@ -6,36 +6,35 @@
 
 Advanced Patriarch mechanics for KF 1.
 
+![GIF](Docs/media/pat.gif)
+
 ## Installation
 
 ```cpp
 KFHardPatF.KFHardPatF
 ```
 
-## Building and Dependancies
+Zed class names:
 
-At the moment of 2021.03.27 there are no dependencies.
+```cpp
+KFHardPatF.HardPat
+KFHardPatF.HardPat_XMAS
+KFHardPatF.HardPat_HALLOWEEN
+KFHardPatF.HardPat_CIRCUS
+```
+
+## Building
 
 Use [KF Compile Tool](https://github.com/InsultingPros/KFCompileTool) for easy compilation.
-
-**EditPackages**
 
 ```cpp
 EditPackages=KFHardPatF
 ```
 
-## Config Files
+## Documentation
 
-[KFHardPatF.ini](Configs/KFHardPatF.ini 'main config')
-
-* Healing state settings.
-* PatHealth
-* bUseCustomMC - fixes unvisible pats on map switch.
-* EventNum
-  * STANDARD:      EventNum=0
-  * XMAS:          EventNum=1
-  * CIRCUS:        EventNum=2
-  * HALLOWEEN:     EventNum=3
+- [KFHardPatF.ini](Configs/KFHardPatF.ini 'main config')
+- [CHANGELOG](Docs/CHANGELOG.md)
 
 ## Steam workshop
 
