@@ -88,32 +88,6 @@ simulated function CloakBoss()
     }
 }
 
-// Speech notifies called from the anims
-function PatriarchKnockDown()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_KnockedDown', SLOT_Misc, 2.0,true,500.0);
-}
-
-function PatriarchEntrance()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_Entrance', SLOT_Misc, 2.0,true,500.0);
-}
-
-function PatriarchVictory()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_Victory', SLOT_Misc, 2.0,true,500.0);
-}
-
-function PatriarchMGPreFire()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_WarnGun', SLOT_Misc, 2.0,true,1000.0);
-}
-
-function PatriarchMisslePreFire()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_WarnRocket', SLOT_Misc, 2.0,true,1000.0);
-}
-
 static simulated function PreCacheMaterials(LevelInfo myLevel)
 {//should be derived and used.
     myLevel.AddPrecacheMaterial(Combiner'KF_Specimens_Trip_XMAS_T.gatling_cmb');
@@ -133,7 +107,17 @@ static simulated function PreCacheMaterials(LevelInfo myLevel)
 
 defaultproperties
 {
-    SaveMeSound=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_SaveMe'
+    sndSaveMe=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_SaveMe'
+    sndKnockDown=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_KnockedDown'
+    sndEntrance=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_Entrance'
+    sndVictory=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_Victory'
+    sndMGPreFire=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_WarnGun'
+    sndMisslePreFire=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_WarnRocket'
+    // yeah TWI didn't add these sounds...
+    // sndTauntNinja=
+    // sndTauntLumberJack=
+    // sndTauntRadial=
+
     RocketFireSound=SoundGroup'KF_EnemiesFinalSnd_Xmas.Patriarch.Kev_FireRocket'
     MiniGunFireSound=Sound'KF_BasePatriarch_xmas.Attack.Kev_MG_GunfireLoop'
     MiniGunSpinSound=Sound'KF_BasePatriarch_xmas.Attack.Kev_MG_TurbineFireLoop'

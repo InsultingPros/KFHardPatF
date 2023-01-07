@@ -18,7 +18,17 @@ var() config int PatHealth;
 var transient float GiveUpTime;
 var byte MissilesLeft;
 var bool bValidBoss, bMovingChaingunAttack;
-var(Sounds) sound SaveMeSound;
+
+// purge insane amount of TWI copy-paste job
+var(Sounds) protected sound sndSaveMe;
+var(Sounds) protected sound sndKnockDown;
+var(Sounds) protected sound sndEntrance;
+var(Sounds) protected sound sndVictory;
+var(Sounds) protected sound sndMGPreFire;
+var(Sounds) protected sound sndMisslePreFire;
+var(Sounds) protected sound sndTauntNinja;
+var(Sounds) protected sound sndTauntLumberJack;
+var(Sounds) protected sound sndTauntRadial;
 
 replication
 {
@@ -282,26 +292,6 @@ function TakeDamage(int Damage, Pawn InstigatedBy, Vector Hitlocation,
     // ignore damage from other patriarch and own rockets
     if (ZombieBoss(InstigatedBy) == none)
         super.TakeDamage(Damage, InstigatedBy, Hitlocation, Momentum, damageType, HitIndex);
-}
-
-state KnockDown
-{
-    Ignores RangedAttack,TakeDamage;
-
-Begin:
-    if (Health > 0)
-    {
-        Sleep(GetAnimDuration('KnockDown'));
-        CloakBoss();
-        PlaySound(SaveMeSound, SLOT_Misc, 2.0,, 500.0);
-
-        if (KFGT.FinalSquadNum == SyringeCount)
-            KFGT.AddBossBuddySquad();
-
-        GotoState('Escaping');
-    }
-    else
-        GotoState('');
 }
 
 state FireChaingun
@@ -671,6 +661,63 @@ Begin:
     }
 }
 
+// ============================== SOUNDS ==============================
+// imagine if TWI did this instead of me...
+state KnockDown
+{
+Ignores RangedAttack,TakeDamage;
+
+Begin:
+    if (Health > 0)
+    {
+        Sleep(GetAnimDuration('KnockDown'));
+        CloakBoss();
+        PlaySound(sndSaveMe, SLOT_Misc, 2.0,, 500.0);
+
+        if (KFGT.FinalSquadNum == SyringeCount)
+            KFGT.AddBossBuddySquad();
+
+        GotoState('Escaping');
+    }
+    else
+        GotoState('');
+}
+
+function PatriarchKnockDown()
+{
+    PlaySound(sndKnockDown, SLOT_Misc, 2.0, true, 500.0);
+}
+
+function PatriarchEntrance()
+{
+    PlaySound(sndEntrance, SLOT_Misc, 2.0, true, 500.0);
+}
+
+function PatriarchVictory()
+{
+    PlaySound(sndVictory, SLOT_Misc, 2.0, true, 500.0);
+}
+
+function PatriarchMGPreFire()
+{
+    PlaySound(sndMGPreFire, SLOT_Misc, 2.0, true, 1000.0);
+}
+
+function PatriarchMisslePreFire()
+{
+    PlaySound(sndMisslePreFire, SLOT_Misc, 2.0, true, 1000.0);
+}
+
+function PatriarchRadialTaunt()
+{
+    if (NumNinjas > 0 && NumNinjas > NumLumberJacks)
+        PlaySound(sndTauntNinja, SLOT_Misc, 2.0, true, 500.0);
+    else if (NumLumberJacks > 0 && NumLumberJacks > NumNinjas)
+        PlaySound(sndTauntLumberJack, SLOT_Misc, 2.0, true, 500.0);
+    else
+        PlaySound(sndTauntRadial, SLOT_Misc, 2.0, true, 500.0);
+}
+
 //============================== BROADCASTING ==============================
 function BroadcastText(string message)
 {
@@ -699,6 +746,16 @@ defaultproperties
     AmmunitionClass=class'BossAmmo'
     ControllerClass=class'HardPatController'
 
+    sndSaveMe=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_SaveMe'
+    sndKnockDown=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_KnockedDown'
+    sndEntrance=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_Entrance'
+    sndVictory=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_Victory'
+    sndMGPreFire=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_WarnGun'
+    sndMisslePreFire=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_WarnRocket'
+    sndTauntNinja=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_TauntNinja'
+    sndTauntLumberJack=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_TauntLumberJack'
+    sndTauntRadial=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_TauntRadial'
+
     PatStates(0)=(bMovCG=false,bRunCG=false,bPauseCG=true,bMisIgnoreRange=false,bAltRoute=false,NumMis[0]=1,NumMis[1]=0,NumCG[0]=35,NumCG[1]=5,MisRepTime=1.000000)
     PatStates(1)=(bMovCG=false,bRunCG=false,bPauseCG=false,bMisIgnoreRange=false,bAltRoute=false,NumMis[0]=2,NumMis[1]=0,NumCG[0]=45,NumCG[1]=10,MisRepTime=0.800000)
     PatStates(2)=(bMovCG=true,bRunCG=false,bPauseCG=false,bMisIgnoreRange=true,bAltRoute=true,NumMis[0]=3,NumMis[1]=0,NumCG[0]=55,NumCG[1]=15,MisRepTime=0.700000)
@@ -720,7 +777,6 @@ defaultproperties
     Skins(0)=Combiner'KF_Specimens_Trip_T.gatling_cmb'
     Skins(1)=Combiner'KF_Specimens_Trip_T.patriarch_cmb'
 
-    SaveMeSound=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_SaveMe'
     RocketFireSound=SoundGroup'KF_EnemiesFinalSnd.Patriarch.Kev_FireRocket'
     MiniGunFireSound=Sound'KF_BasePatriarch.Attack.Kev_MG_GunfireLoop'
     MiniGunSpinSound=Sound'KF_BasePatriarch.Attack.Kev_MG_TurbineFireLoop'

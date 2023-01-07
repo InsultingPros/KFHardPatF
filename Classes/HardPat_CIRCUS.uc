@@ -76,49 +76,6 @@ simulated function CloakBoss()
     }
 }
 
-// Speech notifies called from the anims
-function PatriarchKnockDown()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_KnockedDown', SLOT_Misc, 2.0, true, 500.0);
-}
-
-function PatriarchEntrance()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_Entrance', SLOT_Misc, 2.0, true, 500.0);
-}
-
-function PatriarchVictory()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_Victory', SLOT_Misc, 2.0, true, 500.0);
-}
-
-function PatriarchMGPreFire()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_WarnGun', SLOT_Misc, 2.0, true, 1000.0);
-}
-
-function PatriarchMisslePreFire()
-{
-    PlaySound(SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_WarnRocket', SLOT_Misc, 2.0, true, 1000.0);
-}
-
-// Taunt to use when doing the melee exploit radial attack
-function PatriarchRadialTaunt()
-{
-    if (NumNinjas > 0 && NumNinjas > NumLumberJacks)
-    {
-        PlaySound(SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_TauntNinja', SLOT_Misc, 2.0, true, 500.0);
-    }
-    else if (NumLumberJacks > 0 && NumLumberJacks > NumNinjas)
-    {
-        PlaySound(SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_TauntLumberJack', SLOT_Misc, 2.0, true, 500.0);
-    }
-    else
-    {
-        PlaySound(SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_TauntRadial', SLOT_Misc, 2.0, true, 500.0);
-    }
-}
-
 // should be derived and used.
 static simulated function PreCacheMaterials(LevelInfo myLevel)
 {
@@ -133,7 +90,16 @@ static simulated function PreCacheMaterials(LevelInfo myLevel)
 
 defaultproperties
 {
-    SaveMeSound=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_SaveMe'
+    sndSaveMe=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_SaveMe'
+    sndKnockDown=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_KnockedDown'
+    sndEntrance=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_Entrance'
+    sndVictory=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_Victory'
+    sndMGPreFire=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_WarnGun'
+    sndMisslePreFire=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_WarnRocket'
+    sndTauntNinja=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_TauntNinja'
+    sndTauntLumberJack=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_TauntLumberJack'
+    sndTauntRadial=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_TauntRadial'
+
     RocketFireSound=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_FireRocket'
     MeleeImpaleHitSound=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_HitPlayer_Impale'
     MoanVoice=SoundGroup'KF_EnemiesFinalSnd_CIRCUS.Patriarch.Kev_Talk'
