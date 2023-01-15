@@ -1,6 +1,6 @@
 # Hard Pat v3
 
-![GitHub all releases](https://img.shields.io/github/downloads/InsultingPros/KFHardPatF/total)
+[![GitHub all releases](https://img.shields.io/github/downloads/InsultingPros/KFHardPatF/total)](https://github.com/InsultingPros/KFHardPatF/releases)
 
 > N.B. If you want to add Vampriarch install this [addon](https://github.com/InsultingPros/KFHardPatAddon).
 
