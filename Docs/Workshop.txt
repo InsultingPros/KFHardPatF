@@ -1,0 +1,58 @@
+[h1][b]N.B. Check [url=https://github.com/InsultingPros/KFHardPatAddon/releases]Vampriarch addon[/url] if you are interested.[/b][/h1]
+
+Marco's latest version (v2.0) breaks servers - after you play once with it you will get invisible patriarchs for other votings / maps. Until you restart the server.
+
+I fixed that bug and extended the mod a little bit.
+
+[h2][b]GREYLISTED![/b][/h2]
+Your perk stats won't save and if you are sad about this fact gtfo.
+
+[h2][b]Changelog:[/b][/h2]
+[list]
+[*] Mutator doesn't affect default MonsterCollection and break the server after single usage. Its an optional bool and you can disable it if you use specific gametypes / mutators.
+[*] Added Xmas, Circus, Halloween variants, controlled from config / WebAdmin / mutate commands.
+[*] Added basic console commands with fancy colors. Type 'mutate PAT HELP' for additional info.
+[*] Increased 'ImpaleMeleeDamageRange' to 85 (was 45) and decreased 'ClawMeleeDamageRange' to 75 (was 85), to match the animations.
+[*] No more pipe detonation while escaping for heals.
+[*] 'bHidden' flag is removed. Now pat should be visible during sneak state.
+[*] Freshly spawned Pat should reach to players faster.
+[*] Sharpshooter weapons deal onperk headshot damage while Pat is shooting machinegun. I.E. No more 1200dmg from onperk xbow...
+[*] Zed guns and zap effect made almost useless. No more m1, v24.
+[*] Added health information in console after team wipe.
+[*] More logging for debug and curious admins.
+[*] Fixed 'Accessed None 'MyAmmo'' warnings when pat shoots rockets.
+[*] Fixed 'SaveMe' sounds for seasonal variants.
+[/list]
+
+[h2][b]Console Commands:[/b][/h2]
+[list]
+[*] PAT STANDARD / 0
+[*] PAT XMAS / 1
+[*] PAT CIRCUS / 2
+[*] PAT HALLOWEEN / 3
+[*] PAT HELP
+[*] PAT STATUS
+[*] PAT SAVE
+[/list]
+They work in solo as is and in dedicated servers under admin rights.
+
+[h2][b]Mutator Classname:[/b][/h2]
+[code]
+KFHardPatF.KFHardPatF
+[/code]
+
+[h2][b]Zed Classnames:[/b][/h2]
+[code]
+KFHardPatF.HardPat
+KFHardPatF.HardPat_XMAS
+KFHardPatF.HardPat_HALLOWEEN
+KFHardPatF.HardPat_CIRCUS
+[/code]
+
+Check default [url=https://github.com/InsultingPros/KFHardPatF/blob/main/Configs/KFHardPatF.ini]config file[/url] for reference.
+
+[h2][b]Download Link for Lazy Admins:[/b][/h2]
+[url=https://github.com/InsultingPros/KFHardPatF/releases]Github[/url]
+
+[h2][b]Forum Link to original version:[/b][/h2]
+[url=https://forums.tripwireinteractive.com/forum/killing-floor/killing-floor-modifications/general-modding-discussion-aa/50805-mutator-hard-mode-patriarch?t=49666]HardPat v2.0[/url]
